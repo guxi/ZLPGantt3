@@ -15,7 +15,7 @@ const setdataTable = function (data, divid) {
   data_div_R.setAttribute("id", "data");
 
   //----标题------
-  let name_R = document.createElement("h3");
+  let name_R = document.createElement("h5");
   name_R.innerHTML = name;
   data_div_R.append(name_R);
   // let machine_R = document.createElement("h3");
@@ -32,7 +32,7 @@ const setdataTable = function (data, divid) {
   let tbody_R = document.createElement("tbody");
   table_R.setAttribute("class", "table table-hover");
   //-------- 表头
-  let title = ['工位', '零件', '工艺', '开始时间', '结束时间']
+  let title = ['工位', '零件', '工艺', '开始', '结束']
   let trh = document.createElement("tr");
   title.forEach(e => {
     let th = document.createElement("th");
@@ -66,10 +66,12 @@ const setdataTable = function (data, divid) {
   // table_R.appendChild(tbody_R);
 
   data_div_R.append(table_R);
-
-
   dragdiv.replaceChild(data_div_R, data_div);
 
+  //设置foot
+  let foota = document.getElementById("file-path");
+  foota.innerHTML = "数据文件：" + data.filepath;
+  // foota.setAttribute("href", data.filepath)
 }
 export { setdataTable };
 

@@ -28,7 +28,14 @@ const getXlsxFile = (filepath) => {
 const getJsonFile = (filepath) => {
   try {
     const fs = require("fs");
-    let data = fs.readFileSync(filepath, "utf-8");
+    let value = fs.readFileSync(filepath, "utf-8");
+
+    let data = {};
+    data.name = JSON.parse(value).name;
+    data.machine = JSON.parse(value).machine;
+    data.part = JSON.parse(value).part;
+    data.item = JSON.parse(value).item;
+    data.filepath = filepath;
     return data;
   } catch (err) {
     console.log("getJsonFile error:" + err)

@@ -1,6 +1,7 @@
 //import './index.css';
 //import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap-icons/font/fonts/bootstrap-icons.css';
 
 //////// file_drog ////////
 const dragWrapper = document.getElementById("drag");
@@ -26,12 +27,12 @@ dragWrapper.addEventListener("dragover", (e) => {
 
 
 window.electronAPI.handleGetData(
-  (_event, value) => {
-    let data = {};
-    data.name = JSON.parse(value).name;
-    data.machine = JSON.parse(value).machine;
-    data.part = JSON.parse(value).part;
-    data.item = JSON.parse(value).item;
+  (_event, data) => {
+    // let data = {};
+    // data.name = JSON.parse(value).name;
+    // data.machine = JSON.parse(value).machine;
+    // data.part = JSON.parse(value).part;
+    // data.item = JSON.parse(value).item;
     //console.log("data:" + data);
 
     setDataTable(data);

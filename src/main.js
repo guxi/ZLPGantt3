@@ -19,12 +19,12 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     transparent: true,
     // transparent: true,
-    width: 800,
-    height: 600,
+    width: 1024,
+    height: 768,
     icon: path.join(__dirname, 'gantt6.png'),
     webPreferences: {
       //nodeIntegration: true,
-      enableRemoteModule: true,
+      //enableRemoteModule: true,
       contextIsolation: true, // add this
       preload: path.join(__dirname, 'preload.js')
     }
