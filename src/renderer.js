@@ -32,14 +32,20 @@ window.electronAPI.handleGetData(
 //--------  菜单事件  --------//
 const menu_sample = document.getElementById('sample')
 const menu_openfile = document.getElementById('openfile')
-
+const menu_home = document.getElementById('home')
+const menu_help = document.getElementById('help')
 menu_sample.addEventListener('click', () => {
   window.electronAPI.menu_getSample();
 });
 
 menu_openfile.addEventListener('click', () => {
-
   window.electronAPI.menu_openfile();
 });
+menu_home.addEventListener('click', () => {
+  window.electronAPI.menu_home();
+});
 
+menu_help.addEventListener('click', () => {
+  window.electronAPI.menu_home();
+});
 

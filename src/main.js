@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Menu, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, dialog, webContents } = require('electron');
 const path = require('path');
 
 //const menu = require("./menu.js")
@@ -42,9 +42,14 @@ const createWindow = () => {
     mainWindow.webContents.send('GetData', data);
   })
 
+  ipcMain.on('menu-home', (event) => {
+    mainWindow.webContents.reload();
+  })
+
   ipcMain.on('menu-getSample', (event) => {
     openSample();
   })
+
   ipcMain.on('menu-openfile', (event) => {
 
     openFile();
@@ -62,6 +67,8 @@ const createWindow = () => {
    */
 
   // ------ 菜单事件  ----------
+
+
 
   const openSample = () => {
     let fpath = path.join(__dirname, 'samplesource.json')
@@ -166,6 +173,9 @@ const createWindow = () => {
 
   // mainWindow.webContents.openDevTools();// Open the DevTools.
 };
+
+
+
 
 app.whenReady().then(() => {
   createWindow();

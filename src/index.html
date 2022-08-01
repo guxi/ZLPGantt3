@@ -36,18 +36,62 @@
                 <h4 class="card-title">说明</h4>
                 <p class="card-text">可用用下三种方式加载数据</p>
                 <ul>
-                  <li>1. <i class="bi bi-kanban" style="font-size:large"></i> : 查看示例 </li>
-                  <li>2. <i class="bi bi-file-text" style="font-size:large"></i> : 选择写好的数据文件</li>
-                  <li>3. 拖动数据文件到这</li>
+                  <li> <i class="bi bi-kanban" style="font-size:large"></i> : 查看示例 </li>
+                  <li> <i class="bi bi-file-text" style="font-size:large"></i> : 选择写好的数据文件</li>
+                  <li> 拖动数据文件到这</li>
 
                 </ul>
+
+                <p> <i class="bi bi-house" style="font-size:large"></i> : 回到主界面</p>
                 <p><i class="bi bi-question-lg" style="font-size:large"></i> : 查看数据文件的写法</p>
+                <p>加载数据后、右下角 M、P、W 分别表示工位、工件、工艺的数量</p>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="col-md-8  " id="echarts">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">数据文件格式</h4>
+            <p class="card-text">
+              注： 数据文件可以是JSON文件(如下格式), 或 Excel表(参见例表)</p>
+            <pre style="
+            margin-left: 0%;
+            border: 0;      
+            background-color: rgb(246, 249, 250);
+            font-size: 16px;
+            font-family: 'Consolas', Courier, monospace">
+            <strong>
+             {
+              "name": "减速器加工 3-2",
+              "machine": [
+                "机床1", "机床2", "磨床"
+              ],
+              "part": [
+                "壳", "架", "颈"
+              ],
+              "item": [
+                [ 0, 0, "切角0.5", 0.0, 4.8 ],
+                  ...
+                [  ...  ]          
+              }   
+            </strong>  
+          </pre>
+
+            <ul>
+              <li>
+                注意字符串都需加上""
+              </li>
+              <li>
+                item项5个数据的含义分别是:
+                <strong>
+                  <p>工位号 , 工件号 , 工艺名称 , 开始时间 , 结束时间</p>
+                </strong>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>

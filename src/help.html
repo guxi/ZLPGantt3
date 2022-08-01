@@ -12,15 +12,10 @@
 <body>
   <div class="card">
     <div class="card-body">
-      <h4 class="card-title">使用说明</h4>
-      <p class="card-text">可用以下三种方式加载数据</p>
-      <ul>
-        <li>一. 文件-示例</li>
-        <li>二. 拖动数据文件到左边栏</li>
-        <li>三. 文件-打开，选择写好的数据文件</li>
-        <li>注： 数据文件可以是JSON文件（如下格式）或Excel表（参见例表）</li>
-      </ul>
       <h4 class="card-title">数据文件格式</h4>
+      <p class="card-text">
+        注： 数据文件可以是JSON文件（如下格式）或Excel表（参见例表）</p>
+
       <pre style="
       margin-left: 0%;
       border: 0;      
@@ -29,19 +24,32 @@
       font-family: 'Consolas', Courier, monospace">
       <strong>
        {
-          "title": [
-          "项目","开始时间","结束时间"
-          ]
-          "data": [
-          "a" , 43.3 , 17.8
-          ],
+        "name": "减速器加工 3-2",
+        "machine": [
+          "机床1", "机床2", "磨床"
+        ],
+        "part": [
+          "壳", "架", "颈"
+        ],
+        "item": [
+          [ 0, 0, "切角0.5", 0.0, 4.8 ],
             ...
-          [
-            ...
-          ]          
+          [  ...  ]          
         }   
       </strong>  
     </pre>
+
+      <ul>
+        <li>
+          注意字符串都需加上""
+        </li>
+        <li>
+          item项5个数据的含义分别是:
+          <strong>
+            <p>工位号, 工件号, 工艺名称, 开始时间, 结束时间</p>
+          </strong>
+        </li>
+      </ul>
     </div>
   </div>
 </body>
