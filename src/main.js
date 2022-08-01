@@ -1,6 +1,6 @@
 const { app, BrowserWindow, ipcMain, Menu, dialog } = require('electron');
 const path = require('path');
-// const fs = require("fs");
+
 //const menu = require("./menu.js")
 const datafile = require("./get-data-file.js");
 
@@ -17,15 +17,15 @@ const createWindow = () => {
 
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    transparent: true,
-    // transparent: true,
+    //transparent: true,  //透明
+
     width: 1024,
     height: 768,
     icon: path.join(__dirname, 'gantt6.png'),
     webPreferences: {
       //nodeIntegration: true,
       //enableRemoteModule: true,
-      contextIsolation: true, // add this
+      contextIsolation: true,
       preload: path.join(__dirname, 'preload.js')
     }
   });
@@ -42,44 +42,70 @@ const createWindow = () => {
     mainWindow.webContents.send('GetData', data);
   })
 
+  ipcMain.on('menu-getSample', (event) => {
+    openSample();
+  })
+  ipcMain.on('menu-openfile', (event) => {
+
+    openFile();
+  })
+  // ipcMain.on('menu-quit', (event) => {
+  //   if (process.platform !== 'darwin') {
+  //     app.quit();
+  //   }
+
+  // })
   // require(path.join(__dirname, 'menu.js'));
 
   /**
    * 设置菜单
    */
+
+  // ------ 菜单事件  ----------
+
+  const openSample = () => {
+    let fpath = path.join(__dirname, 'samplesource.json')
+    let data = datafile.getJsonFile(fpath);
+    mainWindow.webContents.send('GetData', data);
+  }
+
+  const openFile = () => {
+    dialog.showOpenDialog({
+      properties: ['openFile'],
+      filters: [
+        { name: 'Gantt', extensions: ['json', 'JSON', 'xlsx', 'txt'] }
+      ]
+    }).then(result => {
+      let filePath = result.filePaths[0];
+      let fillesuffix = filePath.substring(filePath.lastIndexOf("."));
+      let data;
+      if (fillesuffix == ".xlsx") {
+        data = datafile.getXlsxFile(filePath);
+      }
+      else {
+        data = datafile.getJsonFile(filePath);
+      }
+      mainWindow.webContents.send('GetData', data);
+    }).catch(err => {
+      console.log(err)
+    })
+  };
+
+
+
   //menu.setMenu();
   const template = [{
     label: '文件',
     submenu: [{
       label: '打开',
       click: () => {
-        dialog.showOpenDialog({
-          properties: ['openFile'],
-          filters: [
-            { name: 'Gantt', extensions: ['json', 'JSON', 'xlsx', 'txt'] }
-          ]
-        }).then(result => {
-          let filePath = result.filePaths[0];
-          let fillesuffix = filePath.substring(filePath.lastIndexOf("."));
-          let data;
-          if (fillesuffix == ".xlsx") {
-            data = datafile.getXlsxFile(filePath);
-          }
-          else {
-            data = datafile.getJsonFile(filePath);
-          }
-          mainWindow.webContents.send('GetData', data);
-        }).catch(err => {
-          console.log(err)
-        })
+        openFile();
       }
     },
     {
       label: '示例',
       click: () => {
-        let fpath = path.join(__dirname, 'samplesource.json')
-        let data = datafile.getJsonFile(fpath);
-        mainWindow.webContents.send('GetData', data);
+        openSample();
       }
 
     },
@@ -142,11 +168,11 @@ const createWindow = () => {
 };
 
 app.whenReady().then(() => {
-
-
   createWindow();
-  app.on('activate', function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
   })
 })
 
@@ -157,11 +183,10 @@ app.on('window-all-closed', () => {
   }
 });
 
-app.on('activate', () => {
-
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
-});
+// app.on('activate', () => {
+//   if (BrowserWindow.getAllWindows().length === 0) {
+//     createWindow();
+//   }
+// });
 
 

@@ -1,61 +1,45 @@
 //import './index.css';
 //import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'bootstrap-icons/font/fonts/bootstrap-icons.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
-//////// file_drog ////////
+//-------- file_drog ---------//
 const dragWrapper = document.getElementById("drag");
-//const dataTable = document.getElementById("data_Table");
-
 dragWrapper.addEventListener("drop", (e) => {
   console.log("begain drop!");
   e.preventDefault();
   const files = e.dataTransfer.files;
   if (files && files.length > 0) {
     const path = files[0].path;
-    //  console.log(path);
     window.electronAPI.setDrogFile(path);
-    console.log("end drop!");
   }
 })
 dragWrapper.addEventListener("dragover", (e) => {
   e.preventDefault();
-}
-)
+})
+///------ end file drog ---------//
 
-////////// end file drog ////////////
-
-
+//------ 获取数据，设置描述和图形界面
 window.electronAPI.handleGetData(
   (_event, data) => {
-    // let data = {};
-    // data.name = JSON.parse(value).name;
-    // data.machine = JSON.parse(value).machine;
-    // data.part = JSON.parse(value).part;
-    // data.item = JSON.parse(value).item;
-    //console.log("data:" + data);
+    const table = require('./datatable.js');
+    table.setdataTable(data, "data_Table");
+    const charts = require('./chart.js')
+    charts.setEcharts(data, 'echarts');
+  });
+//--------- end 界面设置 ----------//
 
-    setDataTable(data);
+//--------  菜单事件  --------//
+const menu_sample = document.getElementById('sample')
+const menu_openfile = document.getElementById('openfile')
 
-    ff(data);
-  }
-);
+menu_sample.addEventListener('click', () => {
+  window.electronAPI.menu_getSample();
+});
 
-const setDataTable = (data) => {
+menu_openfile.addEventListener('click', () => {
 
-  const table = require('./datatable.js');
-  table.setdataTable(data, "data_Table");
-}
-
-const ff = (s) => {
-  const charts = require('./chart.js')
-  charts.setEcharts(s, 'echarts');
-
-}
-//ff(s)
-//ff(source1);
-//////////// end echarts ///////////
-
-
+  window.electronAPI.menu_openfile();
+});
 
 

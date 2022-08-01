@@ -69,8 +69,10 @@ const setdataTable = function (data, divid) {
   dragdiv.replaceChild(data_div_R, data_div);
 
   //设置foot
-  let foota = document.getElementById("file-path");
-  foota.innerHTML = "数据文件：" + data.filepath;
+  let foot1 = document.getElementById("file-path");
+  let foot2 = document.getElementById("chartsinfo");
+  foot1.innerHTML = "数据文件：" + data.filepath;
+  foot2.innerHTML = "M:" + machines.length + "  P:" + parts.length + "  W:" + items.length;
   // foota.setAttribute("href", data.filepath)
 }
 export { setdataTable };
