@@ -1,5 +1,6 @@
 //import './index.css';
 //import 'bootstrap';
+import 'bootstrap/dist/js/bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -45,7 +46,5 @@ menu_home.addEventListener('click', () => {
   window.electronAPI.menu_home();
 });
 
-menu_help.addEventListener('click', () => {
-  window.electronAPI.menu_home();
-});
+
 

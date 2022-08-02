@@ -10,22 +10,55 @@
 </head>
 
 <body>
-  <nav class="navbar sticky-top navbar-light  ">
-    <div class="btn-group" role="group" aria-label="Basic example">
-      <button type="button" class="btn btn-default" id="home" title="重载">
-        <i class="bi bi-house" style="font-size:x-large"></i>
-      </button>
-      <button type="button" class="btn btn-default" id="sample" title="示例">
-        <i class="bi bi-kanban" style="font-size:x-large"></i>
-      </button>
-      <button type="button" class="btn btn-default" id="openfile" title="打开数据文件">
-        <i class="bi bi-file-text" style="font-size:x-large"></i>
-      </button>
-      <button type="button" class="btn btn-default" id="help" title="帮助">
+  <nav class="navbar sticky-top navbar-light bg-light ">
+    <div class="container-fluid">
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-default" id="home" title="重载">
+          <i class="bi bi-house" style="font-size:x-large"></i>
+        </button>
+        <button type="button" class="btn btn-default" id="sample" title="示例">
+          <i class="bi bi-kanban" style="font-size:x-large"></i>
+        </button>
+        <button type="button" class="btn btn-default" id="openfile" title="打开数据文件">
+          <i class="bi bi-file-text" style="font-size:x-large"></i>
+        </button>
+      </div>
+      <!-- 帮助的展开 -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false"
+        aria-label="Toggle navigation">
         <i class="bi bi-question-lg" style="font-size:x-large"></i>
       </button>
     </div>
   </nav>
+
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-light p-4" style="border: 1;">
+      <figure class="figure">
+        <img src="help.png" class="img-fluid">
+        <figcaption class="figure-caption">
+          <ol>
+            <li>功能菜单</li>
+            <li>点击, 打开/关闭甘特图界面说明</li>
+            <li>数据列表</li>
+            <li>下载甘特图</li>
+            <li>鼠标移上, 显示工艺信息:工件名称 工艺名称 持续时间</li>
+            <li>数据文件位置</li>
+            <li>M、P、W 分别表示工位、工件、工艺的数量</li>
+          </ol>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+  </div>
   <div class="container-fluid  my-3">
     <div class="row">
       <div class="col-md-4 file_drag" id="drag">
@@ -43,15 +76,15 @@
                 </ul>
 
                 <p> <i class="bi bi-house" style="font-size:large"></i> : 回到主界面</p>
-                <p><i class="bi bi-question-lg" style="font-size:large"></i> : 查看数据文件的写法</p>
-                <p>加载数据后、右下角 M、P、W 分别表示工位、工件、工艺的数量</p>
+                <p><i class="bi bi-question-lg" style="font-size:large"></i> : 甘特图界面说明</p>
+
               </div>
             </div>
           </div>
         </div>
       </div>
       <div class="col-md-8  " id="echarts">
-        <div class="card">
+        <div class="card" style="border: 1">
           <div class="card-body">
             <h4 class="card-title">数据文件格式</h4>
             <p class="card-text">
@@ -88,6 +121,7 @@
                 <strong>
                   <p>工位号 , 工件号 , 工艺名称 , 开始时间 , 结束时间</p>
                 </strong>
+                <!-- <p>其中工位号、工件号分别是“machine”和“part”的由0开始的序号</p> -->
               </li>
             </ul>
           </div>

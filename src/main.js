@@ -20,7 +20,7 @@ const createWindow = () => {
     //transparent: true,  //透明
 
     width: 1024,
-    height: 768,
+    height: 788,
     icon: path.join(__dirname, 'gantt6.png'),
     webPreferences: {
       //nodeIntegration: true,
