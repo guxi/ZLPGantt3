@@ -61,19 +61,23 @@
             <div class="card">
               <div class="card-body">
                 <h4 class="card-title">说明</h4>
-                <p class="card-text">可用用下三种方式加载数据</p>
+                <p class="card-text">菜单与图标</p>
+                <ul>
+                  <li> <i class="bi bi-house" style="font-size:large"></i> : 回到主界面</li>
+                  <li> <i class="bi bi-kanban" style="font-size:large"></i> : 查看示例 </li>
+                  <li> <i class="bi bi-file-text" style="font-size:large"></i> : 选择写好的数据文件</li>
+                  <li> <i class="bi bi-question-lg" style="font-size:large"></i> : 甘特图界面说明</li>
+                </ul>
+
+                <p class="card-text">可用以下三种方式加载数据</p>
+
                 <ul>
                   <li> <i class="bi bi-kanban" style="font-size:large"></i> : 查看示例 </li>
                   <li> <i class="bi bi-file-text" style="font-size:large"></i> : 选择写好的数据文件</li>
                   <li> 拖动数据文件到这</li>
-                </ul>
 
-                <p>
-                  <i class="bi bi-house" style="font-size:large"></i> : 回到主界面
-                </p>
-                <p>
-                  <i class="bi bi-question-lg" style="font-size:large"></i> : 甘特图界面说明
-                </p>
+                </ul>
+                <p class="card-text"> 数据文件类型和格式详见右边说明</p>
               </div>
             </div>
           </div>
@@ -83,70 +87,98 @@
       <div class="col-md-8  " id="echarts">
         <ul class="nav nav-tabs">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="./Jsonformat.html">文本文件格式</a>
+            <button class="nav-link active" id="json-tab" data-bs-toggle="tab" data-bs-target="#help_jsonformat"
+              type="button" role="tab" aria-controls="home" aria-selected="true">文本文件格式</button>
+
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Excel表格式</a>
+            <button class="nav-link " id="excel-tab" data-bs-toggle="tab" data-bs-target="#help_excelformat"
+              type="button" role="tab" aria-controls="home" aria-selected="true">Excel表格式</button>
+
           </li>
         </ul>
-
-        <div class="card" style="border: 1">
-          <div class="card-body">
-            <h4 class="card-title">数据文件格式</h4>
-            <p class="card-text">
-              注： 数据文件可以是JSON文件(如下格式), 或 Excel表(参见例表)</p>
-            <pre style="
-            margin-left: 0%;
-            border: 0;      
-            background-color: rgb(246, 249, 250);
-            font-size: 16px;
-            font-family: 'Consolas', Courier, monospace">
-            <strong>
-             {
-              "name": "减速器加工 3-2",
-              "machine": [
-                "机床1", "机床2", "磨床"
-              ],
-              "part": [
-                "壳", "架", "颈"
-              ],
-              "item": [
-                [ 0, 0, "切角0.5", 0.0, 4.8 ],
-                  ...
-                [  ...  ]          
-              }   
-            </strong>  
-          </pre>
-
-            <ul>
-              <li>
-                注意字符串都需加上""
-              </li>
-              <li>
-                item项5个数据的含义分别是:
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="help_jsonformat" role="tabpanel" aria-labelledby="json-tab">
+            <div class="card" style="border: 1">
+              <div class="card-body">
+                <h4 class="card-title">文本数据文件格式</h4>
+                <pre style="
+                margin-left: 0%;
+                border: 0;      
+                background-color: rgb(246, 249, 250);
+                font-size: 16px;
+                font-family: 'Consolas', Courier, monospace">
                 <strong>
-                  <p>工位号 , 工件号 , 工艺名称 , 开始时间 , 结束时间</p>
-                </strong>
-                <p>其中工位号、工件号分别是“machine”和“part”的由0开始的序号</p>
-              </li>
-            </ul>
-          </div>
-        </div>
+                 {
+                  "name": "减速器加工 3-2",
+                  "machine": [
+                    "机床1", "机床2", "磨床"
+                  ],
+                  "part": [
+                    "壳", "架", "颈"
+                  ],
+                  "item": [
+                    [ 0, 0, "切角0.5", 0.0, 4.8 ],
+                      ...
+                    [  ...  ]          
+                  }   
+                </strong>  
+              </pre>
+                <ul>
+                  <li>
+                    文本数据文件最好是JSON文件, 也可用".txt", 字符集请用utf_8</li>
+                  <li>
+                    数据中的字符串都需加上""
+                  </li>
 
+                  <li>
+                    item项5个数据的含义分别是:
+                    <strong>
+                      <p>工位号 , 工件号 , 工艺名称 , 开始时间 , 结束时间</p>
+                    </strong>
+                    <p>其中工位号、工件号分别是“machine”和“part”的由0开始的序号</p>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade " id="help_excelformat" role="tabpanel" aria-labelledby="excel-tab">
+            <div class="card" style="border: 1">
+              <div class="card-body">
+                <h4 class="card-title">Excel数据文件格式</h4>
+                <p class="card-text">
+                <figure class="figure">
+                  <img src="xslxSample.png" class="img-fluid">
+                  <figcaption class="figure-caption">
+                    <ul>
+                      <li>数据请从表格第一行，第一列开始</li>
+                      <li>第一列为名称列，可以随便起</li>
+                      <li>“工艺”中“工位”、“工件”数据分别是“工位名称”和“工件名称”行除名称列外的由0开始的序号
+                    </ul>
+                  </figcaption>
+                </figure>
+
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
       </div>
     </div>
-  </div>
-  <nav class="navbar fixed-bottom navbar-light bg-light">
-    <div class="container-fluid">
-      <span class="navbar-text" id="file-path">
-        <a class="navbar-brand" href="#">武汉科技大学</a>
-      </span>
-      <span class="navbar-text" id="chartsinfo"></span>
-      <!-- <span class="navbar-toggler-icon"></span> -->
-    </div>
-  </nav>
+    <nav class="navbar fixed-bottom navbar-light bg-light">
+      <div class="container-fluid">
+        <span class="navbar-text" id="file-path">
+          <a class="navbar-brand" href="#">武汉科技大学</a>
+        </span>
+        <span class="navbar-text" id="chartsinfo"></span>
+        <!-- <span class="navbar-toggler-icon"></span> -->
+      </div>
+    </nav>
 
-  <script src="./renderer.js"></script>
+    <script src="./renderer.js"></script>
 </body>
 
 </html>
