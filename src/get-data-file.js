@@ -2,21 +2,46 @@ const getXlsxFile = (filepath) => {
   const nodeXlsx = require("node-xlsx");
   try {
     let data = nodeXlsx.parse(filepath);
-    //xlsx文件第一个表格的数据在data内，为一个数组
-    //{"name":"Sheet1","data":[["项目","开始时间","持续时间"],["a",45.8,33],["f",45,33.8]]}
+    let data00 = data[0].data;
+    let machines = [];
+    let parts = [];
+    let items = [];
+
     let returnData = {};
-    let dd = [];
-    data[0].data.forEach((e, index) => {
-      if (index == 0) returnData.title = e;
-      else {
-        dd.push(e);
+    returnData.filepath = filepath;
+    // console.log("data00:")
+    // console.log(data00)
+    data00.forEach((e, index) => {
+      switch (index) {
+        case 0: {
+          returnData.name = e[1]; break
+        }
+        case 1: {
+          e.forEach((ee, index) => {
+            if (index >= 1) machines.push(ee)
+          })
+          break;
+        };
+        case 2: {
+          e.forEach((ee, index) => {
+            if (index >= 1) parts.push(ee)
+          })
+          break;
+        };
+        case 3: break;
+        default: {
+          e.shift()
+          items.push(e)
+        }
       }
-    });
-    returnData.data = dd;
+    })
+    returnData.machine = machines;
+    returnData.part = parts;
+    returnData.item = items;
+    // console.log("returnData:");
+    // console.log(returnData);
 
-    let JSONData = JSON.stringify(returnData);
-
-    return JSONData;
+    return returnData;
   } catch (err) {
     console.log("getExcellFile error:" + err)
   };

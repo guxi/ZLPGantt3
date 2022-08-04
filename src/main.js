@@ -75,6 +75,12 @@ const createWindow = () => {
     let data = datafile.getJsonFile(fpath);
     mainWindow.webContents.send('GetData', data);
   }
+  const openXlsxSample = () => {
+    let fpath = path.join(__dirname, 'xlsxSample2.xlsx')
+    let data = datafile.getXlsxFile(fpath);
+    // console.log("11111111" + data);
+    mainWindow.webContents.send('GetData', data);
+  }
 
   const openFile = () => {
     dialog.showOpenDialog({
@@ -112,7 +118,9 @@ const createWindow = () => {
     {
       label: '示例',
       click: () => {
-        openSample();
+        //openSample();
+        openXlsxSample();
+
       }
 
     },
@@ -139,7 +147,7 @@ const createWindow = () => {
         var win = new BrowserWindow({
           width: 400,
           height: 600,
-          icon: path.join(__dirname, 'gantt6ß.png')
+          icon: path.join(__dirname, 'gantt6.png')
         })
         win.setMenu(null);
         win.loadFile(path.join(__dirname, 'help.html'))
