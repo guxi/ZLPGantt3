@@ -1,21 +1,11 @@
-const { app, BrowserWindow, ipcMain, Menu, dialog, webContents } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, dialog } = require('electron');
 const path = require('path');
 
-//const menu = require("./menu.js")
-const datafile = require("./get-data-file.js");
-
-
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
-  // eslint-disable-line global-require
   app.quit();
 }
 
-
-
 const createWindow = () => {
-
-  // Create the browser window.
   const mainWindow = new BrowserWindow({
     //transparent: true,  //透明
 
@@ -30,6 +20,13 @@ const createWindow = () => {
     }
   });
 
+  //----- UIReload ------//
+  ipcMain.on('menu-home', (event) => {
+    mainWindow.webContents.reload();
+  })
+
+  // ------  get json or xslx  and trans to json   -----//
+  let datafile = require("./get-data-file.js");
   ipcMain.on('set-DrogFile', (event, filePath) => {
     let fillesuffix = filePath.substring(filePath.lastIndexOf("."));
     let data;
@@ -42,34 +39,14 @@ const createWindow = () => {
     mainWindow.webContents.send('GetData', data);
   })
 
-  ipcMain.on('menu-home', (event) => {
-    mainWindow.webContents.reload();
-  })
-
-  ipcMain.on('menu-getSample', (event) => {
-    openSample();
-  })
-
-  ipcMain.on('menu-openfile', (event) => {
-
-    openFile();
-  })
-  // ipcMain.on('menu-quit', (event) => {
-  //   if (process.platform !== 'darwin') {
-  //     app.quit();
-  //   }
-
-  // })
-  // require(path.join(__dirname, 'menu.js'));
+  ipcMain.on('menu-getSample', (event) => openSample())
+  ipcMain.on('menu-openfile', (event) => openFile())
 
   /**
    * 设置菜单
    */
 
   // ------ 菜单事件  ----------
-
-
-
   const openSample = () => {
     let fpath = path.join(__dirname, 'samplesource.json')
     let data = datafile.getJsonFile(fpath);
@@ -78,10 +55,8 @@ const createWindow = () => {
   const openXlsxSample = () => {
     let fpath = path.join(__dirname, 'xlsxSample2.xlsx')
     let data = datafile.getXlsxFile(fpath);
-    // console.log("11111111" + data);
     mainWindow.webContents.send('GetData', data);
   }
-
   const openFile = () => {
     dialog.showOpenDialog({
       properties: ['openFile'],
@@ -104,107 +79,59 @@ const createWindow = () => {
     })
   };
 
+  let menuHelp = () => {
+    var win = new BrowserWindow({
+      width: 400,
+      height: 600,
+      icon: path.join(__dirname, 'gantt6.png')
+    })
+    win.setMenu(null);
+    win.loadFile(path.join(__dirname, 'help.html'))
+    win.on('closed', () => {
+      win = null
+    })
+  }
 
-
-  //menu.setMenu();
-  const template = [{
-    label: '文件',
-    submenu: [{
-      label: '打开',
-      click: () => {
-        openFile();
-      }
-    },
-    {
-      label: '示例',
-      click: () => {
-        //openSample();
-        openXlsxSample();
-
-      }
-
-    },
-
-    {
-      label: '退出',
-      role: 'quit'
-    }
-    ]
-  },
-  {
-    label: '编辑',
-    role: 'editMenu'
-  },
-  {
-    label: '视图',
-    role: 'viewMenu'
-  },
-  {
-    label: '帮助',
-    submenu: [{
-      label: '帮助',
-      click: () => {//点击事件
-        var win = new BrowserWindow({
-          width: 400,
-          height: 600,
-          icon: path.join(__dirname, 'gantt6.png')
-        })
-        win.setMenu(null);
-        win.loadFile(path.join(__dirname, 'help.html'))
-        win.on('closed', () => {
-          win = null
-        })
-      }
-    }, {
-      label: '关于',
-      click: () => {
-        dialog.showMessageBox({
-          title: "关于",
-          button: "确定",
-          type: "info",
-          message: "甘特图生成器"
-        });
-      }
-      //  role: 'about'
-    }]
-  },
-
-  ];
-
-  var list = Menu.buildFromTemplate(template);
-  Menu.setApplicationMenu(list);
-
-  /////////////// end 设置菜单 ////////////////////
-
+  let menu = require("./menu.js")
+  Menu.setApplicationMenu(
+    Menu.buildFromTemplate(
+      menu.setMenu(openFile, openXlsxSample, menuHelp)
+    )
+  );
+  //--------- end 设置菜单 -----------//
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-
   // mainWindow.webContents.openDevTools();// Open the DevTools.
 };
 
-
-
-
 app.whenReady().then(() => {
   createWindow();
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow()
-    }
-  })
+  // app.on('activate', () => {
+  //   if (BrowserWindow.getAllWindows().length === 0) {
+  //     createWindow()
+  //   }
+  // })
 })
 
-
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+  dialog.showMessageBox({
+    title: "退出甘特图App",
+    buttons: ["确定", "取消"],
+    type: "warning",
+    message: "确定退出！",
+    //cancelId: 0
+  }).then(result => {
+    console.log(result)
+    if (result.response == 0) app.quit();
+  });
+  //console.log(i)
+  // if (process.platform !== 'darwin') {
+  //app.quit();
+  // }
 });
 
-// app.on('activate', () => {
-//   if (BrowserWindow.getAllWindows().length === 0) {
-//     createWindow();
-//   }
-// });
-
-
+app.on('activate', () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
+});

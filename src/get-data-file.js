@@ -9,8 +9,6 @@ const getXlsxFile = (filepath) => {
 
     let returnData = {};
     returnData.filepath = filepath;
-    // console.log("data00:")
-    // console.log(data00)
     data00.forEach((e, index) => {
       switch (index) {
         case 0: {
@@ -38,8 +36,6 @@ const getXlsxFile = (filepath) => {
     returnData.machine = machines;
     returnData.part = parts;
     returnData.item = items;
-    // console.log("returnData:");
-    // console.log(returnData);
 
     return returnData;
   } catch (err) {
