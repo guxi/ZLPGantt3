@@ -1,6 +1,7 @@
-const { app, BrowserWindow, ipcMain, Menu, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, Menu, dialog, webContents } = require('electron');
 const path = require('path');
 
+// stop app launching multiple times during install //
 if (require('electron-squirrel-startup')) {
   app.quit();
 }
@@ -26,7 +27,7 @@ const createWindow = () => {
   })
 
   // ------  get json or xslx  and trans to json   -----//
-  let datafile = require("./get-data-file.js");
+  const datafile = require("./get-data-file.js");
   ipcMain.on('set-DrogFile', (event, filePath) => {
     let fillesuffix = filePath.substring(filePath.lastIndexOf("."));
     let data;
@@ -79,8 +80,8 @@ const createWindow = () => {
     })
   };
 
-  let menuHelp = () => {
-    var win = new BrowserWindow({
+  const menuHelp = () => {
+    const win = new BrowserWindow({
       width: 400,
       height: 600,
       icon: path.join(__dirname, 'gantt6.png')
@@ -92,7 +93,7 @@ const createWindow = () => {
     })
   }
 
-  let menu = require("./menu.js")
+  const menu = require("./menu.js")
   Menu.setApplicationMenu(
     Menu.buildFromTemplate(
       menu.setMenu(openFile, openXlsxSample, menuHelp)

@@ -1,5 +1,3 @@
-//import './index.css';
-//import 'bootstrap';
 import 'bootstrap/dist/js/bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -11,7 +9,7 @@ dragWrapper.addEventListener("drop", (e) => {
   e.preventDefault();
   const files = e.dataTransfer.files;
   if (files && files.length > 0) {
-    const path = files[0].path;
+    let path = files[0].path;
     window.electronAPI.setDrogFile(path);
   }
 })

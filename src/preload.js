@@ -19,9 +19,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
   menu_home: () => {
     ipcRenderer.send('menu-home');
   },
-
-  //   menu_quit: () => {
-  //     ipcRenderer.send('menu-quit');
-  //   },
 });
 

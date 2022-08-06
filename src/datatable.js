@@ -1,5 +1,5 @@
 
-const setdataTable = function (data, divid) {
+const setdataTable = (data, divid) => {
 
   let name = data.name;
   let machines = data.machine;
@@ -18,13 +18,7 @@ const setdataTable = function (data, divid) {
   let name_R = document.createElement("h5");
   name_R.innerHTML = name;
   data_div_R.append(name_R);
-  // let machine_R = document.createElement("h3");
-  // machine_R.innerHTML = machines;
-  // let parts_R = document.createElement("h3");
-  // parts_R.innerHTML = parts;
-  data_div_R.append(name_R);
-
-
+  //data_div_R.append(name_R);
 
   //------ 表格数据  -------
   let table_R = document.createElement("table");
@@ -49,10 +43,6 @@ const setdataTable = function (data, divid) {
       let td = document.createElement("td");
       if (index == 0) ee = machines[ee]
       if (index == 1) ee = parts[ee]
-
-      // if (typeof ee == "string") { td = document.createElement("th"); }
-      // else 
-
 
       td.innerHTML = ee;
       trd.appendChild(td);

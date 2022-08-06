@@ -16,23 +16,7 @@ const setEcharts = function (source, divid) {
 
   var option;
   var indata = source
-  // console.log("name======\n" + indata.name)
-  // console.log("machine======\n" + indata.machine)
-  // console.log("part======\n" + indata.part)
 
-  // var indata = {
-  //   name: "减速器工艺3-2",
-  //   machine: ['机床1', '机床2', '磨床'],
-  //   part: ['壳', '架', '颈'],
-  //   item: [
-  //     [0, 0, "切角0.5", 0., 4.8],
-  //     [1, 1, "切上边", 0., 7.8],
-  //     [2, 0, "磨边", 5., 7.8],
-  //     [0, 0, "磨边2", 10., 17.8],
-  //     [1, 2, "磨边2", 12., 15.],
-  //     [0, 1, "磨边2", 17.8, 25.],
-  //   ]
-  // }
   var color = [
     '#7b9ce1',
     '#bd6d6c',
