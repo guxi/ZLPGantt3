@@ -38,6 +38,7 @@ const createWindow = () => {
       data = datafile.getJsonFile(filePath);
     }
     mainWindow.webContents.send('GetData', data);
+
   })
 
   ipcMain.on('menu-getSample', (event) => openSample())
