@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>帮助</title>
+
+</head>
+
+<body>
+  <div class="card">
+    <div class="card-body">
+      <h4 class="card-title">数据文件格式</h4>
+      <p class="card-text">
+        注： 数据文件可以是JSON文件(如下格式) 或Excel表(参见例表)</p>
+
+      <pre style="
+      margin-left: 0%;
+      border: 0;      
+      background-color: rgb(246, 249, 250);
+      font-size: 16px;
+      font-family: 'Consolas', Courier, monospace">
+      <strong>
+       {
+        "name": "减速器加工 3-2",
+        "machine": [
+          "机床1", "机床2", "磨床"
+        ],
+        "part": [
+          "壳", "架", "颈"
+        ],
+        "item": [
+          [ 0, 0, "切角0.5", 0.0, 4.8 ],
+            ...
+          [  ...  ]          
+        }   
+      </strong>  
+    </pre>
+
+      <ul>
+        <li>
+          注意字符串都需加上""
+        </li>
+        <li>
+          item项5个数据的含义分别是:
+          <strong>
+            <p>工位号, 工件号, 工艺名称, 开始时间, 结束时间</p>
+          </strong>
+          其中, 工位号和工件号分别是“machine”和"part"的序号(由0开始)
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+
+</html>
